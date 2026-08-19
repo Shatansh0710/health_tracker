@@ -24,7 +24,7 @@ GOALS = {
     "muscle_gain": {"label": "Muscle Gain", "calories": 2600, "protein": 200, "carbs": 300, "fat": 85},
 }
 
-session_state = {"goal": "maintenance", "vibeCheck": False, "meals": []}
+session_state = {"goal": "maintenance", "meals": []}
 
 
 def build_state():
@@ -41,7 +41,6 @@ def build_state():
     }
     return {
         "goal": {"id": session_state["goal"], **goal},
-        "vibeCheck": session_state["vibeCheck"],
         "totals": totals,
         "targets": {nutrient: goal[nutrient] for nutrient in totals},
         "progress": progress,
@@ -108,16 +107,6 @@ def update_goal():
     if goal not in GOALS:
         return error_response("Goal must be weight_loss, maintenance, or muscle_gain.")
     session_state["goal"] = goal
-    return jsonify(build_state())
-
-
-@app.put("/api/vibe-check")
-def update_vibe_check():
-    payload = request.get_json(silent=True) or {}
-    value = payload.get("enabled")
-    if not isinstance(value, bool):
-        return error_response("Vibe Check enabled must be true or false.")
-    session_state["vibeCheck"] = value
     return jsonify(build_state())
 
 
