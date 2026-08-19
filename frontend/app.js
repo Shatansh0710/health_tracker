@@ -33,6 +33,8 @@ function renderState(state) {
   });
 
   document.querySelectorAll('.goal-button').forEach((button) => button.classList.toggle('active', button.dataset.goal === state.goal.id));
+  document.querySelector('#vibe-input').checked = state.vibeCheck;
+  document.body.classList.toggle('vibe-on', state.vibeCheck);
   setText('meal-count', `${state.meals.length} meal${state.meals.length === 1 ? '' : 's'}`);
   document.querySelector('#history-list').innerHTML = state.meals.length ? state.meals.map((meal) => `
     <article class="history-item"><div class="meal-symbol">${meal.food.slice(0, 1)}</div><div class="meal-info"><strong>${meal.food}</strong><span>${meal.grams}g</span></div><div class="meal-macros"><strong>${meal.calories} kcal</strong><span>${meal.protein}g protein · ${meal.carbs}g carbs · ${meal.fat}g fat</span></div><button class="delete-button" data-meal-id="${meal.id}" type="button" aria-label="Delete ${meal.food}">×</button></article>
@@ -67,6 +69,11 @@ document.querySelectorAll('.goal-button').forEach((button) => button.addEventLis
   try { const state = await request('/api/fitness-goal', { method: 'PUT', body: JSON.stringify({ goal: button.dataset.goal }) }); renderState(state); }
   catch (error) { formMessage.textContent = error.message; }
 }));
+
+document.querySelector('#vibe-input').addEventListener('change', async (event) => {
+  try { const state = await request('/api/vibe-check', { method: 'PUT', body: JSON.stringify({ enabled: event.target.checked }) }); renderState(state); }
+  catch (error) { formMessage.textContent = error.message; }
+});
 
 document.querySelector('#scan-button').addEventListener('click', async () => {
   try { const scan = await request('/api/mock-scan'); document.querySelector('#food-input').value = scan.food; document.querySelector('#grams-input').value = scan.grams; formMessage.textContent = 'Mock scan ready to review.'; }
