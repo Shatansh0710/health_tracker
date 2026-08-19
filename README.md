@@ -15,6 +15,7 @@ The project now includes:
 - `GET /api/state` for the complete calculated application state
 - `POST /api/log-meal` and `DELETE /api/log-meal/:id`
 - `PUT /api/fitness-goal` for Balanced/Fitness target switching
+- `PUT /api/vibe-check` for the session's Vibe Check toggle
 - `GET /api/mock-scan` for mock image-upload autofill data
 - Conditional over-budget modal driven by the server's `isOverBudget` flag
 
