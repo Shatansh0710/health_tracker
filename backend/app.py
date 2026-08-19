@@ -19,11 +19,12 @@ FOOD_BASELINES = {
 }
 
 GOALS = {
-    "balanced": {"label": "Balanced", "calories": 2000, "protein": 150, "carbs": 220, "fat": 70},
-    "fitness": {"label": "Fitness", "calories": 2400, "protein": 190, "carbs": 260, "fat": 80},
+    "weight_loss": {"label": "Weight Loss", "calories": 1800, "protein": 140, "carbs": 180, "fat": 60},
+    "maintenance": {"label": "Maintenance", "calories": 2200, "protein": 150, "carbs": 250, "fat": 75},
+    "muscle_gain": {"label": "Muscle Gain", "calories": 2600, "protein": 200, "carbs": 300, "fat": 85},
 }
 
-session_state = {"goal": "balanced", "vibeCheck": False, "meals": []}
+session_state = {"goal": "maintenance", "vibeCheck": False, "meals": []}
 
 
 def build_state():
@@ -105,7 +106,7 @@ def update_goal():
     payload = request.get_json(silent=True) or {}
     goal = str(payload.get("goal", "")).strip().lower()
     if goal not in GOALS:
-        return error_response("Goal must be balanced or fitness.")
+        return error_response("Goal must be weight_loss, maintenance, or muscle_gain.")
     session_state["goal"] = goal
     return jsonify(build_state())
 

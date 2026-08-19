@@ -13,7 +13,7 @@
           <p class="eyebrow">Daily health tracker</p>
           <h1>Eat with intention.</h1>
         </div>
-        <div class="header-actions"><label class="vibe-toggle"><span>Vibe check</span><input id="vibe-input" type="checkbox" /><span class="toggle-track"></span></label><div class="connection-state"><span class="live-dot"></span><span id="api-status">Connecting...</span></div></div>
+        <div class="header-actions"><div class="fitness-goal"><span class="control-label">Fitness goal</span><div class="goal-switch" role="group" aria-label="Fitness goal"><button class="goal-button" data-goal="weight_loss" type="button">Weight Loss</button><button class="goal-button active" data-goal="maintenance" type="button">Maintenance</button><button class="goal-button" data-goal="muscle_gain" type="button">Muscle Gain</button></div></div><div class="connection-state"><span class="live-dot"></span><span id="api-status">Connecting...</span></div></div>
       </header>
 
       <section class="hero-panel" aria-labelledby="dashboard-heading">
@@ -21,10 +21,6 @@
           <div>
             <p class="section-kicker">Your day at a glance</p>
             <h2 id="dashboard-heading">Dashboard</h2>
-          </div>
-          <div class="goal-switch" role="group" aria-label="Fitness goal">
-            <button class="goal-button active" data-goal="balanced" type="button">Balanced</button>
-            <button class="goal-button" data-goal="fitness" type="button">Fitness</button>
           </div>
         </div>
         <div class="calorie-readout">
