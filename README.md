@@ -11,6 +11,7 @@ The project now includes:
 - CORS enabled for `/api/*`
 - In-memory session state for the active goal and meal list
 - Server-side nutrient scaling from mock per-gram food baselines
+- Free-text food entry with optional custom nutrition per 100 g for new foods
 - Daily calorie budget and macro progress returned by the API
 - `GET /api/state` for the complete calculated application state
 - `POST /api/log-meal` and `DELETE /api/log-meal/:id`

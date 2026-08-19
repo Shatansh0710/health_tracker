@@ -72,12 +72,28 @@ def log_meal():
     except (TypeError, ValueError):
         return error_response("Portion must be a number.")
 
-    if food_key not in FOOD_BASELINES:
-        return error_response("Choose a food from the available list.")
     if grams <= 0 or grams > 5000:
         return error_response("Portion must be between 1 and 5000 grams.")
 
-    baseline = FOOD_BASELINES[food_key]
+    baseline = FOOD_BASELINES.get(food_key)
+    if baseline is None:
+        nutrition = payload.get("nutrition") or {}
+        required_nutrients = ("calories", "protein", "carbs", "fat")
+        if not str(payload.get("food", "")).strip() or any(nutrient not in nutrition or nutrition[nutrient] == "" for nutrient in required_nutrients):
+            return error_response("Custom foods require calories, protein, carbs, and fat per 100 g.")
+        try:
+            baseline = {
+                "label": str(payload.get("food", "")).strip(),
+                "calories": float(nutrition.get("calories", 0)),
+                "protein": float(nutrition.get("protein", 0)),
+                "carbs": float(nutrition.get("carbs", 0)),
+                "fat": float(nutrition.get("fat", 0)),
+            }
+        except (TypeError, ValueError):
+            return error_response("Custom nutrition values must be numbers.")
+        if not baseline["label"] or any(value < 0 for key, value in baseline.items() if key != "label"):
+            return error_response("Custom nutrition values cannot be negative.")
+
     meal = {
         "id": str(uuid4()),
         "food": baseline["label"],

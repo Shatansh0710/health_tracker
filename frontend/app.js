@@ -2,6 +2,7 @@ const statusElement = document.querySelector('#api-status');
 const form = document.querySelector('#meal-form');
 const formMessage = document.querySelector('#form-message');
 const warningModal = document.querySelector('#warning-modal');
+const customNutritionFields = ['calories', 'protein', 'carbs', 'fat'];
 
 async function request(path, options = {}) {
   const response = await fetch(path, { headers: { 'Content-Type': 'application/json' }, ...options });
@@ -57,7 +58,9 @@ form.addEventListener('submit', async (event) => {
   event.preventDefault();
   formMessage.textContent = '';
   try {
-    await request('/api/log-meal', { method: 'POST', body: JSON.stringify({ food: document.querySelector('#food-input').value, grams: document.querySelector('#grams-input').value }) });
+    const nutrition = Object.fromEntries(customNutritionFields.map((nutrient) => [nutrient, document.querySelector(`#custom-${nutrient}`).value]));
+    const hasCustomNutrition = Object.values(nutrition).some((value) => value !== '');
+    await request('/api/log-meal', { method: 'POST', body: JSON.stringify({ food: document.querySelector('#food-input').value, grams: document.querySelector('#grams-input').value, nutrition: hasCustomNutrition ? nutrition : undefined }) });
     form.reset();
     await refreshState();
   } catch (error) { formMessage.textContent = error.message; }

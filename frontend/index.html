@@ -39,8 +39,9 @@
       <section class="logging-layout" aria-labelledby="logging-heading">
         <div class="section-heading compact-heading"><div><p class="section-kicker">Keep the record</p><h2 id="logging-heading">Log a meal</h2></div></div>
         <form id="meal-form" class="meal-form">
-          <label>Food<select id="food-input" name="food" required><option value="">Select a food</option><option value="chicken breast">Chicken breast</option><option value="brown rice">Brown rice</option><option value="banana">Banana</option><option value="greek yogurt">Greek yogurt</option><option value="avocado">Avocado</option><option value="oatmeal">Oatmeal</option></select></label>
+          <label>Food<input id="food-input" name="food" list="food-options" placeholder="e.g. lentil soup" required /><datalist id="food-options"><option value="Chicken breast"></option><option value="Brown rice"></option><option value="Banana"></option><option value="Greek yogurt"></option><option value="Avocado"></option><option value="Oatmeal"></option></datalist></label>
           <label>Portion (grams)<input id="grams-input" name="grams" type="number" min="1" max="5000" placeholder="e.g. 150" required /></label>
+          <fieldset class="custom-nutrition"><legend>Custom nutrition per 100 g <span>(required for new foods)</span></legend><label>Calories<input id="custom-calories" type="number" min="0" step="0.1" placeholder="0" /></label><label>Protein (g)<input id="custom-protein" type="number" min="0" step="0.1" placeholder="0" /></label><label>Carbs (g)<input id="custom-carbs" type="number" min="0" step="0.1" placeholder="0" /></label><label>Fat (g)<input id="custom-fat" type="number" min="0" step="0.1" placeholder="0" /></label></fieldset>
           <div class="form-actions"><button class="primary-button" type="submit">Add to today</button><button class="scan-button" id="scan-button" type="button"><span aria-hidden="true">◉</span> Mock scan</button></div>
           <p class="form-message" id="form-message" role="status"></p>
         </form>
