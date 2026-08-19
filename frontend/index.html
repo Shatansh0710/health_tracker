@@ -8,10 +8,55 @@
   </head>
   <body>
     <main class="app-shell">
-      <p class="eyebrow">Daily health tracker</p>
-      <h1>Build a day that feels good.</h1>
-      <p class="status" id="api-status">Connecting to the API...</p>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Daily health tracker</p>
+          <h1>Eat with intention.</h1>
+        </div>
+        <div class="connection-state"><span class="live-dot"></span><span id="api-status">Connecting...</span></div>
+      </header>
+
+      <section class="hero-panel" aria-labelledby="dashboard-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Your day at a glance</p>
+            <h2 id="dashboard-heading">Dashboard</h2>
+          </div>
+          <div class="goal-switch" role="group" aria-label="Fitness goal">
+            <button class="goal-button active" data-goal="balanced" type="button">Balanced</button>
+            <button class="goal-button" data-goal="fitness" type="button">Fitness</button>
+          </div>
+        </div>
+        <div class="calorie-readout">
+          <div><span id="calories-total">0</span><small> kcal logged</small></div>
+          <span class="target-copy">of <strong id="calories-target">0</strong> kcal</span>
+        </div>
+        <div class="progress-track calorie-track"><div class="progress-fill" id="calories-progress"></div></div>
+        <p class="budget-note" id="budget-note">Loading your daily budget...</p>
+        <div class="macro-grid">
+          <article class="macro-card protein-card"><div class="macro-label"><span class="macro-mark"></span>Protein</div><strong><span id="protein-total">0</span>g</strong><span>of <span id="protein-target">0</span>g</span><div class="progress-track"><div class="progress-fill" id="protein-progress"></div></div></article>
+          <article class="macro-card carbs-card"><div class="macro-label"><span class="macro-mark"></span>Carbs</div><strong><span id="carbs-total">0</span>g</strong><span>of <span id="carbs-target">0</span>g</span><div class="progress-track"><div class="progress-fill" id="carbs-progress"></div></div></article>
+          <article class="macro-card fat-card"><div class="macro-label"><span class="macro-mark"></span>Fat</div><strong><span id="fat-total">0</span>g</strong><span>of <span id="fat-target">0</span>g</span><div class="progress-track"><div class="progress-fill" id="fat-progress"></div></div></article>
+        </div>
+      </section>
+
+      <section class="logging-layout" aria-labelledby="logging-heading">
+        <div class="section-heading compact-heading"><div><p class="section-kicker">Keep the record</p><h2 id="logging-heading">Log a meal</h2></div></div>
+        <form id="meal-form" class="meal-form">
+          <label>Food<select id="food-input" name="food" required><option value="">Select a food</option><option value="chicken breast">Chicken breast</option><option value="brown rice">Brown rice</option><option value="banana">Banana</option><option value="greek yogurt">Greek yogurt</option><option value="avocado">Avocado</option><option value="oatmeal">Oatmeal</option></select></label>
+          <label>Portion (grams)<input id="grams-input" name="grams" type="number" min="1" max="5000" placeholder="e.g. 150" required /></label>
+          <div class="form-actions"><button class="primary-button" type="submit">Add to today</button><button class="scan-button" id="scan-button" type="button"><span aria-hidden="true">◉</span> Mock scan</button></div>
+          <p class="form-message" id="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section class="history-section" aria-labelledby="history-heading">
+        <div class="section-heading compact-heading"><div><p class="section-kicker">What you have logged</p><h2 id="history-heading">Daily history</h2></div><span class="meal-count" id="meal-count">0 meals</span></div>
+        <div class="history-list" id="history-list"><p class="empty-state">No meals logged yet.</p></div>
+      </section>
     </main>
+
+    <dialog class="warning-modal" id="warning-modal"><div class="modal-icon">!</div><p class="section-kicker">Daily budget</p><h2>You are over budget.</h2><p>Your logged calories have passed the target returned by the server. You can still review or remove a meal below.</p><button class="primary-button" id="close-modal" type="button">Keep tracking</button></dialog>
     <script src="/app.js" defer></script>
   </body>
 </html>

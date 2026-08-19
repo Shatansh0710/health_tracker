@@ -2,14 +2,23 @@
 
 A client-server health tracker. The Flask API will own all calculations and validation; the frontend will render the state returned by the API.
 
-## Phase 1 setup
+## Current functionality
 
-The initial scaffold includes:
+The project now includes:
 
 - Flask backend in `backend/app.py`
-- Vanilla frontend in `frontend/`
+- Vanilla frontend dashboard in `frontend/`
 - CORS enabled for `/api/*`
-- `GET /api/health` smoke-test endpoint
+- In-memory session state for the active goal and meal list
+- Server-side nutrient scaling from mock per-gram food baselines
+- Daily calorie budget and macro progress returned by the API
+- `GET /api/state` for the complete calculated application state
+- `POST /api/log-meal` and `DELETE /api/log-meal/:id`
+- `PUT /api/fitness-goal` for Balanced/Fitness target switching
+- `GET /api/mock-scan` for mock image-upload autofill data
+- Conditional over-budget modal driven by the server's `isOverBudget` flag
+
+The frontend does not calculate nutrients, targets, or budget status. It renders the latest JSON state returned by the backend.
 
 ## Run locally
 
